@@ -1,0 +1,21 @@
+``
+   PASS  Tests\Feature\CustomerStampsTest
+  ✓ multiple items on same intake date only earn one stamp               0.23s  
+  ✓ separate dates and customers count independently and reward uses ei… 0.03s  
+  ✓ finishing another item later does not create an extra stamp          0.01s  
+  ✓ deleting orders recounts stamps and preserves customer and other or… 0.02s  
+  ✓ guests cannot delete orders                                          0.01s  
+
+   PASS  Tests\Feature\DeleteAccountTest
+  ✓ admin can delete another account                                     0.03s  
+  ✓ admin cannot delete own account                                      0.01s  
+  ✓ staff cannot delete even with stale admin role in session            0.01s  
+  ✓ guest cannot delete an account                                       0.01s  
+
+   PASS  Tests\Feature\WhatsAppReceiptTest
+  ✓ cash receipt contains totals and pickup message                      0.01s  
+  ✓ qris does not claim unrecorded payment                               0.01s  
+
+  Tests:    11 passed (53 assertions)
+  Duration: 0.44s
+

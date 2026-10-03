@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 780" role="img" aria-labelledby="title">
+  <title id="title">Raab Shoes</title>
+  <defs>
+    <style>
+      .main { font-family: Georgia, "Times New Roman", serif; font-size: 560px; font-weight: 900; }
+      .sub { font-family: Arial, Helvetica, sans-serif; font-size: 112px; font-weight: 900; letter-spacing: 34px; }
+    </style>
+  </defs>
+  <rect width="1700" height="780" fill="none"/>
+  <text class="main" x="70" y="500" fill="#ff6f00">R</text>
+  <text class="main" x="475" y="500" fill="#050505">a</text>
+  <text class="main" x="805" y="500" fill="#ff6f00">a</text>
+  <text class="main" x="1150" y="500" fill="#050505">b</text>
+  <text class="sub" x="96" y="660" fill="#050505">SHOES</text>
+  <g fill="#ff6f00" transform="translate(780 590)">
+    <rect x="0" y="0" width="25" height="25"/>
+    <rect x="45" y="0" width="25" height="25"/>
+    <rect x="90" y="0" width="25" height="25"/>
+    <rect x="135" y="0" width="25" height="25"/>
+    <rect x="180" y="0" width="25" height="25"/>
+    <rect x="225" y="0" width="25" height="25"/>
+    <rect x="270" y="0" width="25" height="25"/>
+    <rect x="315" y="0" width="25" height="25"/>
+    <rect x="360" y="0" width="25" height="25"/>
+    <rect x="405" y="0" width="25" height="25"/>
+    <rect x="450" y="0" width="25" height="25"/>
+    <rect x="495" y="0" width="25" height="25"/>
+    <rect x="540" y="0" width="25" height="25"/>
+    <rect x="585" y="0" width="25" height="25"/>
+    <rect x="630" y="0" width="25" height="25"/>
+    <rect x="675" y="0" width="25" height="25"/>
+    <rect x="22" y="44" width="25" height="25"/>
+    <rect x="67" y="44" width="25" height="25"/>
+    <rect x="112" y="44" width="25" height="25"/>
+    <rect x="157" y="44" width="25" height="25"/>
+    <rect x="202" y="44" width="25" height="25"/>
+    <rect x="247" y="44" width="25" height="25"/>
+    <rect x="292" y="44" width="25" height="25"/>
+    <rect x="337" y="44" width="25" height="25"/>
+    <rect x="382" y="44" width="25" height="25"/>
+    <rect x="427" y="44" width="25" height="25"/>
+    <rect x="472" y="44" width="25" height="25"/>
+    <rect x="517" y="44" width="25" height="25"/>
+    <rect x="562" y="44" width="25" height="25"/>
+    <rect x="607" y="44" width="25" height="25"/>
+    <rect x="652" y="44" width="25" height="25"/>
+    <rect x="697" y="44" width="25" height="25"/>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+/* Shared presentation for services and order listings. */
+body { background: #f7f8fa; }
+.admin-shell { grid-template-columns: 250px minmax(0, 1fr); }
+.sidebar { box-shadow: none; }
+.sidebar-brand { height: 124px; padding: 25px 30px; background: #fff3e5; box-shadow: none; border-radius: 0; }
+.brand-logo { width: 164px; }
+.sidebar-nav { padding: 24px 16px; }
+.nav-item { border-radius: 12px; font-size: .86rem; }
+.nav-item.active { background: #fff0df; color: #b65300; }
+.topbar { padding: 24px 32px; border-radius: 0; box-shadow: none; border-bottom: 1px solid var(--border-soft); }
+.headline { font-size: 1.6rem; }
+.subheadline { font-size: .82rem; color: var(--muted); }
+.admin-pill { min-width: 145px; border-width: 1px; }
+.content { padding: 0 32px 36px; }
+.listing-hero{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:30px 34px;background:linear-gradient(110deg,#fff0dc,#fff8ef 65%,#ffe8c7);border:1px solid #f4ddbe;border-radius:22px}.listing-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:.15em;color:#aa6729}.listing-hero h2{margin:12px 0;font-size:clamp(1.7rem,2.7vw,2.5rem);line-height:1.2;letter-spacing:-.045em;color:#38281c}.listing-hero p{margin:0 0 20px;color:#8b755f;font-size:.75rem;line-height:1.8;max-width:430px}.primary-btn{min-width:0;height:44px;padding:0 18px;border-radius:10px;background:#d96808;color:white;font-size:.75rem;box-shadow:none}.primary-btn:hover{background:#ba5504}.primary-btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid #efa454;outline-offset:3px}.listing-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:24px 0 14px}.listing-heading h2{font-size:1.1rem;margin:0}.listing-heading>span{font-size:.68rem;color:#818a96}body.theme-dark{background:#151922}body.theme-dark .listing-hero{background:linear-gradient(110deg,#35291f,#29241f);border-color:#59432e}body.theme-dark .listing-hero h2{color:#fff0dc}body.theme-dark .listing-hero p,body.theme-dark .listing-eyebrow{color:#c9ad8c}body.theme-dark .nav-item.active{background:#392a1d;color:#ffbf81}
+@media(max-width:980px){.admin-shell{grid-template-columns:minmax(0,1fr)}.sidebar-brand{height:90px;padding:14px 24px}.brand-logo{width:145px}.sidebar-nav{display:flex;overflow-x:auto;padding:10px 16px;gap:6px}.nav-item{flex:0 0 auto;padding:12px;font-size:.73rem}.nav-item.active::after{display:none}.content{padding:0 24px 28px}}
+@media(max-width:640px){.topbar{padding:20px}.content{padding:0 16px 24px}.listing-hero{flex-direction:column;align-items:stretch;padding:24px}.primary-btn{width:auto}.listing-heading{align-items:flex-start;flex-direction:column;gap:5px}}
