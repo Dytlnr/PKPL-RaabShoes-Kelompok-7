@@ -1,0 +1,57 @@
+  0/23 [░░░░░░░░░░░░░░░░░░░░░░░░░░░░]   0%[1G[2K 23/23 [▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓] 100%
+
+ ------ -------------------------------------------------------------------------------------------------------------------------------- 
+  Line   app/Models/Customer.php                                                                                                         
+ ------ -------------------------------------------------------------------------------------------------------------------------------- 
+  :41    Parameter #1 $callback of method Illuminate\Support\Collection<int,Illuminate\Database\Eloquent\Model>::filter() expects (call  
+         able(Illuminate\Database\Eloquent\Model, int): bool)|null, Closure(App\Models\Order): bool given.                               
+         🪪  argument.type                                                                                                               
+  :44    Parameter #1 $groupBy of method Illuminate\Support\Collection<int,Illuminate\Database\Eloquent\Model>::groupBy() expects (call  
+         able(Illuminate\Database\Eloquent\Model, int): non-falsy-string)|list<Closure|string>|string, Closure(App\Models\Order): non-f  
+         alsy-string given.                                                                                                              
+         🪪  argument.type                                                                                                               
+         💡  Type #2 from the union: Closure(App\Models\Order): non-falsy-string is not a list.                                          
+ ------ -------------------------------------------------------------------------------------------------------------------------------- 
+
+ ------ -------------------------------------------------------------------------------------------------------------------------------- 
+  Line   app/Support/WhatsAppReceipt.php                                                                                                 
+ ------ -------------------------------------------------------------------------------------------------------------------------------- 
+  :22    Strict comparison using !== between int<0, max> and null will always evaluate to true.                                          
+         🪪  notIdentical.alwaysTrue                                                                                                     
+         💡  Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain: false in your t  
+         esting/phpstan/phpstan.neon.                                                                                                    
+  :26    Strict comparison using !== between int<0, max> and null will always evaluate to true.                                          
+         🪪  notIdentical.alwaysTrue                                                                                                     
+         💡  Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain: false in your t  
+         esting/phpstan/phpstan.neon.                                                                                                    
+  :43    Access to an undefined property Illuminate\Database\Eloquent\Model::$current_stamp_progress.                                    
+         🪪  property.notFound                                                                                                           
+         💡  Learn more: https://phpstan.org/blog/solving-phpstan-access-to-undefined-property                                           
+  :44    Access to an undefined property Illuminate\Database\Eloquent\Model::$available_rewards.                                         
+         🪪  property.notFound                                                                                                           
+         💡  Learn more: https://phpstan.org/blog/solving-phpstan-access-to-undefined-property                                           
+ ------ -------------------------------------------------------------------------------------------------------------------------------- 
+
+ ------- ----------------------------------------------------------------------------------------------------------------------------- 
+  Line    routes/web.php                                                                                                               
+ ------- ----------------------------------------------------------------------------------------------------------------------------- 
+  :742    Offset 'phone' on array{id: string, customer_name: string, phone: string, address: string|null, item_type: string, color:    
+          string|null, condition: string|null, service_choice: string, ...} on left side of ?? always exists and is not nullable.      
+          🪪  nullCoalesce.offset                                                                                                      
+  :877    Offset 'service' on array{id: string, customer_name: string, phone: string, address: string|null, item_type: string, color:  
+          string|null, condition: string|null, service_choice: string, ...} on left side of ?? always exists and is not nullable.      
+          🪪  nullCoalesce.offset                                                                                                      
+  :931    Parameter #1 $boolean of function abort_unless expects bool, App\Models\User|null given.                                     
+          🪪  argument.type                                                                                                            
+  :954    Parameter #1 $boolean of function abort_unless expects bool, App\Models\User|null given.                                     
+          🪪  argument.type                                                                                                            
+  :996    Parameter #1 $boolean of function abort_unless expects bool, App\Models\User|null given.                                     
+          🪪  argument.type                                                                                                            
+  :1008   Parameter #1 $boolean of function abort_unless expects bool, App\Models\User|null given.                                     
+          🪪  argument.type                                                                                                            
+  :1016   Parameter #1 $boolean of function abort_unless expects bool, App\Models\User|null given.                                     
+          🪪  argument.type                                                                                                            
+ ------- ----------------------------------------------------------------------------------------------------------------------------- 
+
+ [ERROR] Found 13 errors                                                                                                
+
