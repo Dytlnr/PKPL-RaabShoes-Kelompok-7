@@ -48,6 +48,7 @@ class Order extends Model
         'photo_url',
     ];
 
+    /** @return BelongsTo<Customer, $this> */
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);

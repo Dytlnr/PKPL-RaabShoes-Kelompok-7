@@ -1,0 +1,25 @@
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Console/Commands/ResetPraktikumRegistration.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/AuthController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/CustomerController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/DashboardController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/OrderController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/ReportController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/ServiceController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Core/Controller.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Core/Database.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Core/Model.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Core/Router.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Http/Controllers/Controller.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Models/Customer.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Models/Order.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Models/OrderPhoto.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Models/Service.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Models/User.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Providers/AppServiceProvider.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Support/InitialAdminRegistration.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Support/OrderPayment.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Support/WhatsAppReceipt.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/routes/console.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/routes/web.php
+
+ [OK] No errors

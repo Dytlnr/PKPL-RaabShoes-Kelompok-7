@@ -1,0 +1,114 @@
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Console/Commands/ResetPraktikumRegistration.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/AuthController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/CustomerController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/DashboardController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/OrderController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/ReportController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Controllers/ServiceController.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Core/Controller.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Core/Database.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Core/Model.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Core/Router.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Http/Controllers/Controller.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Models/Customer.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Models/Order.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Models/OrderPhoto.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Models/Service.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Models/User.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Providers/AppServiceProvider.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Support/InitialAdminRegistration.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Support/OrderPayment.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/app/Support/WhatsAppReceipt.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/routes/console.php
+/Users/user/Downloads/raabshoes/PKPL-RaabShoes-Kelompok-7/routes/web.php
+Instructions for interpreting errors
+---------
+
+Each error has an associated identifier, like `argument.type`
+or `return.missing`.
+
+Each error identifier has documentation at URL https://phpstan.org/error-identifiers/<identifier>
+This page contains code example, explanation why is this an error
+and instruction how to fix it.
+Before fixing the error, fetch the documentation page for its identifier.
+
+The error usually indicates a real bug or incorrect type in the code. Fix the underlying cause, do not just make the error go away.
+Do not add `@phpstan-ignore` comments, `@phpstan-ignore-next-line` comments, or baseline entries to suppress the error.
+Do not use assert() or inline @var PHPDoc tag to override PHPStan's inferred type.
+Do not add type casts just to silence errors.
+Do not widen parameter or return types just to make the error go away.
+ ------ -----------------------------------------------------------------------
+  Line   app/Models/Customer.php
+ ------ -----------------------------------------------------------------------
+  41     Parameter #1 $callback of method Illuminate\Support\Collection<int,Il
+         luminate\Database\Eloquent\Model>::filter() expects (callable(Illumin
+         ate\Database\Eloquent\Model, int): bool)|null,
+         Closure(App\Models\Order): bool given.
+         🪪  argument.type
+  44     Parameter #1 $groupBy of method Illuminate\Support\Collection<int,Ill
+         uminate\Database\Eloquent\Model>::groupBy() expects (callable(Illumin
+         ate\Database\Eloquent\Model, int): non-falsy-string)|list<Closure|str
+         ing>|string, Closure(App\Models\Order): non-falsy-string given.
+         🪪  argument.type
+         💡  Type #2 from the union: Closure(App\Models\Order):
+         non-falsy-string is not a list.
+ ------ -----------------------------------------------------------------------
+
+ ------ -----------------------------------------------------------------------
+  Line   app/Support/WhatsAppReceipt.php
+ ------ -----------------------------------------------------------------------
+  22     Strict comparison using !== between int<0, max> and null will always
+         evaluate to true.
+         🪪  notIdentical.alwaysTrue
+         💡  Because the type is coming from a PHPDoc, you can turn off this
+         check by setting treatPhpDocTypesAsCertain: false in your testing/php
+         stan/phpstan.neon.
+  26     Strict comparison using !== between int<0, max> and null will always
+         evaluate to true.
+         🪪  notIdentical.alwaysTrue
+         💡  Because the type is coming from a PHPDoc, you can turn off this
+         check by setting treatPhpDocTypesAsCertain: false in your testing/php
+         stan/phpstan.neon.
+  43     Access to an undefined property
+         Illuminate\Database\Eloquent\Model::$current_stamp_progress.
+         🪪  property.notFound
+         💡  Learn more: https://phpstan.org/blog/solving-phpstan-access-to-und
+         efined-property
+  44     Access to an undefined property
+         Illuminate\Database\Eloquent\Model::$available_rewards.
+         🪪  property.notFound
+         💡  Learn more: https://phpstan.org/blog/solving-phpstan-access-to-und
+         efined-property
+ ------ -----------------------------------------------------------------------
+
+ ------ ----------------------------------------------------------------------
+  Line   routes/web.php
+ ------ ----------------------------------------------------------------------
+  742    Offset 'phone' on array{id: string, customer_name: string, phone:
+         string, address: string|null, item_type: string, color: string|null,
+         condition: string|null, service_choice: string, ...} on left side of
+         ?? always exists and is not nullable.
+         🪪  nullCoalesce.offset
+  877    Offset 'service' on array{id: string, customer_name: string, phone:
+         string, address: string|null, item_type: string, color: string|null,
+         condition: string|null, service_choice: string, ...} on left side of
+         ?? always exists and is not nullable.
+         🪪  nullCoalesce.offset
+  931    Parameter #1 $boolean of function abort_unless expects bool,
+         App\Models\User|null given.
+         🪪  argument.type
+  954    Parameter #1 $boolean of function abort_unless expects bool,
+         App\Models\User|null given.
+         🪪  argument.type
+  996    Parameter #1 $boolean of function abort_unless expects bool,
+         App\Models\User|null given.
+         🪪  argument.type
+  1008   Parameter #1 $boolean of function abort_unless expects bool,
+         App\Models\User|null given.
+         🪪  argument.type
+  1016   Parameter #1 $boolean of function abort_unless expects bool,
+         App\Models\User|null given.
+         🪪  argument.type
+ ------ ----------------------------------------------------------------------
+
+ [ERROR] Found 13 errors

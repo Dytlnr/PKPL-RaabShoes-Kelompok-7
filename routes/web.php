@@ -739,7 +739,7 @@ Route::get('/orders/{id}/whatsapp', function (Request $request, string $id) use 
     }
 
     $order = $formatOrder($orderModel);
-    $digits = preg_replace('/\D+/', '', $order['phone'] ?? '');
+    $digits = preg_replace('/\D+/', '', $order['phone']);
     $whatsAppNumber = str_starts_with($digits, '0')
         ? '62' . substr($digits, 1)
         : (str_starts_with($digits, '62') ? $digits : $digits);
@@ -874,7 +874,7 @@ Route::get('/reports/export', function (Request $request) use ($servicePrices, $
 
     $totalRevenue = 0;
     foreach ($orders as $order) {
-        $totalRevenue += $servicePrices[$order['service'] ?? ''] ?? 0;
+        $totalRevenue += $servicePrices[$order['service']] ?? 0;
     }
 
     return response()
@@ -928,7 +928,7 @@ Route::get('/transaction-history', function (Request $request) use ($applyDateRa
 })->name('transaction-history.index');
 
 Route::get('/settings', function () {
-    abort_unless(User::accountManager(), 403);
+    abort_unless(User::accountManager() !== null, 403);
 
 
     $users = User::query()
@@ -951,7 +951,7 @@ Route::get('/settings', function () {
 })->name('settings.index');
 
 Route::post('/settings/users', function (Request $request) {
-    abort_unless(User::accountManager(), 403);
+    abort_unless(User::accountManager() !== null, 403);
 
 
     $normalizedUsername = Str::of((string) $request->input('username'))
@@ -993,7 +993,7 @@ Route::post('/settings/users', function (Request $request) {
 
 Route::delete('/settings/users/{user}', function (Request $request, User $user) {
     $actor = User::accountManager();
-    abort_unless($actor, 403);
+    abort_unless($actor !== null, 403);
 
     if ($actor->is($user)) {
         return back()->with('error', 'Akun yang sedang Anda gunakan tidak bisa dihapus.');
@@ -1005,7 +1005,7 @@ Route::delete('/settings/users/{user}', function (Request $request, User $user) 
 })->name('settings.users.destroy');
 
 Route::get('/settings/password', function () {
-    abort_unless(User::sessionUser(), 403);
+    abort_unless(User::sessionUser() !== null, 403);
 
     return view('settings.password');
 })->name('settings.password');
@@ -1013,7 +1013,7 @@ Route::get('/settings/password', function () {
 
 Route::post('/settings/password', function (Request $request) {
     $user = User::sessionUser();
-    abort_unless($user, 403);
+    abort_unless($user !== null, 403);
 
     $validated = $request->validate([
         'current_password' => ['required', 'string'],

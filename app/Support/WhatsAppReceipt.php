@@ -19,11 +19,11 @@ class WhatsAppReceipt
             'Tanggal: ' . ($order->created_at?->format('d/m/Y, H.i') ?? '-'),
             'Layanan:',
             '- ' . ($order->service ?: '-'),
-            $price !== null ? '- 1 x ' . $rupiah($price) . ' = ' . $rupiah($price) : '- Harga belum tercatat',
+            '- 1 x ' . $rupiah($price) . ' = ' . $rupiah($price),
             '- Barang: ' . ($order->service_choice ?: $order->item_type ?: '-'),
             '- Merek: ' . ($order->brand ?: '-'),
             '', '--------------------',
-            '*Total Tagihan: ' . ($price !== null ? $rupiah($price) : 'Belum tercatat') . '*',
+            '*Total Tagihan: ' . $rupiah($price) . '*',
             'Status Pembayaran: *' . ($order->payment_status ?? 'Belum dikonfirmasi') . '*',
             'Metode Bayar: ' . ($order->payment_method ?: 'Belum ditentukan'),
         ];
