@@ -5,6 +5,9 @@
 .env.production
 .phpactor.json
 .phpunit.result.cache
+.scannerwork/
+coverage.xml
+junit.xml
 /.fleet
 /.idea
 /.nova
