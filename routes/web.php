@@ -381,15 +381,15 @@ Route::post('/logout', function (Request $request) {
         ->with('success', 'Anda berhasil keluar.');
 })->name('logout');
 
-Route::get('/dashboard', function () use ($servicePrices) {
-    $orders = Order::query()->latest()->get();
-    $today = now()->format('d/m/Y');
-    $todayOrders = 0;
-    $todayRevenue = 0;
-    $inProgress = 0;
-    $completed = 0;
-    $readyPickup = 0;
-    $serviceCounts = [];
+$summarizeOrders = static function ($orders, $servicePrices, string $today): array {
+    $summary = [
+        'todayOrders' => 0,
+        'todayRevenue' => 0,
+        'inProgress' => 0,
+        'completed' => 0,
+        'readyPickup' => 0,
+        'serviceCounts' => [],
+    ];
 
     foreach ($orders as $order) {
         $service = $order->service ?? '';
@@ -397,26 +397,42 @@ Route::get('/dashboard', function () use ($servicePrices) {
         $createdAt = optional($order->created_at)->format('d/m/Y H:i');
 
         if ($createdAt && str_starts_with($createdAt, $today)) {
-            $todayOrders++;
-            $todayRevenue += $price;
+            $summary['todayOrders']++;
+            $summary['todayRevenue'] += $price;
         }
 
         if ($order->status === 'Diproses') {
-            $inProgress++;
+            $summary['inProgress']++;
         }
 
         if ($order->status === 'Siap Diambil' || $order->status === 'Diambil') {
-            $completed++;
+            $summary['completed']++;
         }
 
         if ($order->status === 'Siap Diambil') {
-            $readyPickup++;
+            $summary['readyPickup']++;
         }
 
         if ($service !== '') {
-            $serviceCounts[$service] = ($serviceCounts[$service] ?? 0) + 1;
+            $summary['serviceCounts'][$service] = ($summary['serviceCounts'][$service] ?? 0) + 1;
         }
     }
+
+    return $summary;
+};
+
+Route::get('/dashboard', function () use ($servicePrices, $summarizeOrders) {
+    $orders = Order::query()->latest()->get();
+    $today = now()->format('d/m/Y');
+
+    [
+        'todayOrders' => $todayOrders,
+        'todayRevenue' => $todayRevenue,
+        'inProgress' => $inProgress,
+        'completed' => $completed,
+        'readyPickup' => $readyPickup,
+        'serviceCounts' => $serviceCounts,
+    ] = $summarizeOrders($orders, $servicePrices, $today);
 
     arsort($serviceCounts);
     $topServices = array_slice($serviceCounts, 0, 4, true);
