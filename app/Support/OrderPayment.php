@@ -20,7 +20,8 @@ class OrderPayment
             }
             if ((int) $raw < $price) {
                 throw ValidationException::withMessages([
-                    'cash_paid' => 'Nominal yang diisi kurang dari tagihan. Koreksi nominal atau kosongkan jika tidak dicatat.',
+                   'cash_paid' => 'Nominal yang diisi kurang dari tagihan. ' .
+                        'Koreksi nominal atau kosongkan jika tidak dicatat.',
                 ]);
             }
             $paid = (int) $raw;
