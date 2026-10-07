@@ -742,7 +742,7 @@ Route::get('/orders/{id}/whatsapp', function (Request $request, string $id) use 
     $digits = preg_replace('/\D+/', '', $order['phone'] ?? '');
     $whatsAppNumber = str_starts_with($digits, '0')
         ? '62' . substr($digits, 1)
-        : (str_starts_with($digits, '62') ? $digits : $digits);
+        : $digits;
 
     if (! $whatsAppNumber) {
         return redirect()
