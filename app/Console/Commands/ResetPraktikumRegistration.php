@@ -41,7 +41,8 @@ class ResetPraktikumRegistration extends Command
     {
         $expected = storage_path('praktikum/database.sqlite');
         $config = config('database.connections.sqlite');
-        if (! app()->environment('praktikum')
+        if (
+            ! app()->environment('praktikum')
             || config('database.default') !== 'sqlite'
             || ($config['database'] ?? null) !== $expected
             || ! empty($config['url'])
@@ -50,7 +51,8 @@ class ResetPraktikumRegistration extends Command
             || config('session.driver') !== 'database'
             || config('session.connection') !== 'sqlite'
             || config('session.table') !== 'sessions'
-            || config('session.cookie') !== 'raabshoes_praktikum_session') {
+            || config('session.cookie') !== 'raabshoes_praktikum_session'
+        ) {
             throw new RuntimeException('Reset ditolak: gunakan php praktikum.php reset pada profil praktikum terpisah.');
         }
 
