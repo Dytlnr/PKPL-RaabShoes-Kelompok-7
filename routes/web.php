@@ -125,14 +125,16 @@ $applyDateRange = static function ($query, string $dateFrom, string $dateTo) {
         try {
             $query->where('created_at', '>=', Carbon::parse($dateFrom)->startOfDay());
         } catch (\Throwable $e) {
-        }
+    // Tanggal tidak valid diabaikan: filter tanggal tidak diterapkan.
+}
     }
 
     if ($dateTo !== '') {
         try {
             $query->where('created_at', '<=', Carbon::parse($dateTo)->endOfDay());
-        } catch (\Throwable $e) {
-        }
+        }} catch (\Throwable $e) {
+    // Tanggal tidak valid diabaikan: filter tanggal tidak diterapkan.
+}
     }
 
     return $query;
