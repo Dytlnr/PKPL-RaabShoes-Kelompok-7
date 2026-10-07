@@ -3,6 +3,8 @@
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\User;
+use App\Support\DateFormat;
+use App\Support\OrderStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
+
+
 
 $servicePrices = [
     'Fast Clean - Easy' => 20000,
@@ -27,15 +31,16 @@ $servicePrices = [
     'Hat' => 20000,
 ];
 
+$standardDuration = '1-3 hari';
 $serviceEstimates = [
     'Fast Clean - Easy' => '1-2 hari',
-    'Fast Clean - Hard' => '1-3 hari',
+    'Fast Clean - Hard' => $standardDuration,
     'Deep Clean - Flat Shoes' => '1-2 hari',
-    'Deep Clean - Reguler' => '1-3 hari',
+    'Deep Clean - Reguler' => $standardDuration,
     'Deep Clean - Express' => '1 hari',
     'Deep Clean - Express Half Day' => '7-8 jam',
     'Reglue' => '1-10 hari',
-    'Unyellowing' => '1-3 hari',
+    'Unyellowing' => $standardDuration,
     'Repaint/Custom' => '3-10 hari',
 ];
 
@@ -79,7 +84,7 @@ $formatOrder = static function (Order $order): array {
         'payment_method' => $order->payment_method,
         'payment_status' => $order->payment_status ?? 'Belum dikonfirmasi',
         'status' => $order->status,
-        'created_at' => optional($order->created_at)->format('d/m/Y H:i'),
+        'created_at' => optional($order->created_at)->format(DateFormat::DATETIME),
         'uploaded_photo_url' => $order->photo_url,
         'uploaded_photo_name' => $order->photo_name,
     ];
@@ -94,7 +99,7 @@ $formatCustomer = static function (Customer $customer): array {
 
     $stampOrders = $customer->stampVisits()
         ->map(fn ($orders, $date) => [
-            'date' => Carbon::parse($date)->format('d/m/Y'),
+            'date' => Carbon::parse($date)->format(DateFormat::DATE),
             'order_count' => $orders->count(),
             'orders' => $orders->map(fn (Order $order) => [
                 'id' => $order->order_code,
@@ -116,7 +121,7 @@ $formatCustomer = static function (Customer $customer): array {
         'available_rewards' => $customer->available_rewards,
         'reward_redemptions' => $customer->reward_redemptions,
         'stamp_orders' => $stampOrders,
-        'created_at' => optional($customer->created_at)->format('d/m/Y H:i'),
+        'created_at' => optional($customer->created_at)->format(DateFormat::DATETIME),
     ];
 };
 
@@ -394,7 +399,7 @@ $summarizeOrders = static function ($orders, $servicePrices, string $today): arr
     foreach ($orders as $order) {
         $service = $order->service ?? '';
         $price = $servicePrices[$service] ?? 0;
-        $createdAt = optional($order->created_at)->format('d/m/Y H:i');
+        $createdAt = optional($order->created_at)->format(DateFormat::DATETIME);
 
         if ($createdAt && str_starts_with($createdAt, $today)) {
             $summary['todayOrders']++;
@@ -405,11 +410,11 @@ $summarizeOrders = static function ($orders, $servicePrices, string $today): arr
             $summary['inProgress']++;
         }
 
-        if ($order->status === 'Siap Diambil' || $order->status === 'Diambil') {
+        if ($order->status === OrderStatus::READY || $order->status === 'Diambil') {
             $summary['completed']++;
         }
 
-        if ($order->status === 'Siap Diambil') {
+        if ($order->status === OrderStatus::READY) {
             $summary['readyPickup']++;
         }
 
@@ -423,7 +428,7 @@ $summarizeOrders = static function ($orders, $servicePrices, string $today): arr
 
 Route::get('/dashboard', function () use ($servicePrices, $summarizeOrders) {
     $orders = Order::query()->latest()->get();
-    $today = now()->format('d/m/Y');
+    $today = now()->format(DateFormat::DATE);
 
     [
         'todayOrders' => $todayOrders,
@@ -488,17 +493,17 @@ Route::get('/dashboard', function () use ($servicePrices, $summarizeOrders) {
 })->name('dashboard');
 
 Route::get('/orders', function (Request $request) use ($formatOrder) {
-    $statusOptions = ['Semua Status', 'Baru', 'Diproses', 'Siap Diambil', 'Diambil'];
-    $activeStatus = $request->query('status', 'Semua Status');
+    $statusOptions = [OrderStatus::ALL, 'Baru', 'Diproses', OrderStatus::READY, 'Diambil'];
+    $activeStatus = $request->query('status', OrderStatus::ALL);
     $search = trim((string) $request->query('search', ''));
 
     if (! in_array($activeStatus, $statusOptions, true)) {
-        $activeStatus = 'Semua Status';
+        $activeStatus = OrderStatus::ALL;
     }
 
     $query = Order::query()->latest();
 
-    if ($activeStatus !== 'Semua Status') {
+    if ($activeStatus !== OrderStatus::ALL) {
         $query->where('status', $activeStatus);
     }
 
@@ -547,7 +552,7 @@ Route::post('/orders', function (Request $request) use ($servicePrices) {
         'item_photo' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:5120'],
         'notes' => ['nullable', 'string'],
         'payment_method' => ['nullable', 'in:Cash (Tunai),Transfer Bank,QRIS'],
-        'payment_status' => ['required', 'in:Belum Lunas,Lunas'],
+        'payment_status' => ['required', OrderStatus::PAYMENT_RULE],
         'cash_paid' => ['nullable', 'string', 'max:50'],
     ]);
 
@@ -653,7 +658,7 @@ Route::post('/orders/{id}', function (Request $request, string $id) use ($servic
         'service' => ['required', 'string', 'max:255'],
         'notes' => ['nullable', 'string'],
         'payment_method' => ['nullable', 'in:Cash (Tunai),Transfer Bank,QRIS'],
-        'payment_status' => ['required', 'in:Belum Lunas,Lunas'],
+        'payment_status' => ['required', OrderStatus::PAYMENT_RULE],
         'cash_paid' => ['nullable', 'string', 'max:50'],
         'status' => ['required', 'string', 'in:Baru,Diproses,Siap Diambil,Diambil'],
     ]);
@@ -730,7 +735,7 @@ Route::post('/orders/{id}/payment-status', function (Request $request, string $i
         return redirect()->route('login');
     }
     $validated = $request->validate([
-        'payment_status' => ['required', 'in:Belum Lunas,Lunas'],
+        'payment_status' => ['required', OrderStatus::PAYMENT_RULE],
         'redirect_status' => ['nullable', 'in:Semua Status,Baru,Diproses,Siap Diambil,Diambil'],
         'search' => ['nullable', 'string', 'max:255'],
     ]);
@@ -862,7 +867,7 @@ Route::get('/reports', function (Request $request) use ($servicePrices, $applyDa
         }
 
         if ($order->created_at) {
-            $dayKey = $order->created_at->format('d/m/Y');
+            $dayKey = $order->created_at->format(DateFormat::DATE);
             $dailyRevenue[$dayKey] = ($dailyRevenue[$dayKey] ?? 0) + $price;
         }
     }
@@ -908,19 +913,19 @@ Route::get('/reports/export', function (Request $request) use ($servicePrices, $
 })->name('reports.export');
 
 Route::get('/transaction-history', function (Request $request) use ($applyDateRange, $formatOrder) {
-    $statusOptions = ['Semua Status', 'Baru', 'Diproses', 'Siap Diambil', 'Diambil'];
-    $activeStatus = $request->query('status', 'Semua Status');
+    $statusOptions = [OrderStatus::ALL, 'Baru', 'Diproses', OrderStatus::READY, 'Diambil'];
+    $activeStatus = $request->query('status', OrderStatus::ALL);
     $search = trim((string) $request->query('search', ''));
     $dateFrom = trim((string) $request->query('date_from', ''));
     $dateTo = trim((string) $request->query('date_to', ''));
 
     if (! in_array($activeStatus, $statusOptions, true)) {
-        $activeStatus = 'Semua Status';
+        $activeStatus = OrderStatus::ALL;
     }
 
     $query = Order::query()->latest();
 
-    if ($activeStatus !== 'Semua Status') {
+    if ($activeStatus !== OrderStatus::ALL) {
         $query->where('status', $activeStatus);
     }
 
