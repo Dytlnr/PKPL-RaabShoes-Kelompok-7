@@ -22,7 +22,7 @@ class PraktikumResetTest extends TestCase
         $this->app->instance('env', 'praktikum');
         config([
             'database.default' => 'sqlite',
-            'database.connections.sqlite.database' => $this->temporaryStorage.'/praktikum/database.sqlite',
+            'database.connections.sqlite.database' => storage_path('praktikum/database.sqlite'),
             'database.connections.sqlite.url' => null,
             'session.driver' => 'database', 'session.connection' => 'sqlite',
             'session.table' => 'sessions', 'session.cookie' => 'raabshoes_praktikum_session',
