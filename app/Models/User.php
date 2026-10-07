@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,17 +9,15 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     public static function sessionUser(): ?self
-    {
-        $session = session('social_auth');
+{
+    $session = session('social_auth');
 
-        if (! is_array($session)) {
-            return null;
-        }
-
+    if (! is_array($session)) {
+        return null;
+    }
         return ! empty($session['user_id'])
-    ? static::find($session['user_id'])
-    : static::where('email', $session['email'] ?? '')->first();
-        return $user;
+            ? static::find($session['user_id'])
+            : static::where('email', $session['email'] ?? '')->first();
     }
 
     public static function accountManager(): ?self
