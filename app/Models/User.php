@@ -17,10 +17,9 @@ class User extends Authenticatable
             return null;
         }
 
-        $user = ! empty($session['user_id'])
-            ? static::find($session['user_id'])
-            : static::where('email', $session['email'] ?? '')->first();
-
+        return ! empty($session['user_id'])
+    ? static::find($session['user_id'])
+    : static::where('email', $session['email'] ?? '')->first();
         return $user;
     }
 
