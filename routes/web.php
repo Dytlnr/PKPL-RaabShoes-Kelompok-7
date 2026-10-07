@@ -993,7 +993,7 @@ Route::post('/settings/users', function (Request $request) {
         ->with('success', 'Akun pegawai berhasil ditambahkan.');
 })->name('settings.users.store');
 
-Route::delete('/settings/users/{user}', function (Request $request, User $user) {
+Route::delete('/settings/users/{user}', function (User $user) {
     $actor = User::accountManager();
     abort_unless($actor, 403);
 
